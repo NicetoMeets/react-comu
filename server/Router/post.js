@@ -1,5 +1,6 @@
 var express = require("express");
 var router = express.Router();
+const multer = require("multer");
 
 const { Post } = require("../Model/Post.js");
 const { Counter } = require("../Model/Counter.js");
@@ -18,7 +19,7 @@ router.post("/submit", (req, res) => {
                     }
                     );
                 })
-            })
+        })
         .catch((err) => {
             res.status(400).json({ success: false })
         });
@@ -33,12 +34,12 @@ router.post("/list", (req, res) => {
 });
 
 router.post("/detail", (req, res) => {
-    Post.findOne({postNum : Number(req.body.postNum)})
-    .exec().then((doc) => {
-        res.status(200).json({ success: true, post: doc })
-    }).catch((err) => {
-        res.status(400).json({ success: false })
-    });
+    Post.findOne({ postNum: Number(req.body.postNum) })
+        .exec().then((doc) => {
+            res.status(200).json({ success: true, post: doc })
+        }).catch((err) => {
+            res.status(400).json({ success: false })
+        });
 });
 
 router.post("/edit", (req, res) => {
@@ -47,21 +48,45 @@ router.post("/edit", (req, res) => {
         content: req.body.content,
     }
 
-    Post.updateOne({postNum : Number(req.body.postNum)}, {$set: temp})
-    .exec().then(() => {
-        res.status(200).json({ success: true })
-    }).catch((err) => {
-        res.status(400).json({ success: false })
-    });
+    Post.updateOne({ postNum: Number(req.body.postNum) }, { $set: temp })
+        .exec().then(() => {
+            res.status(200).json({ success: true })
+        }).catch((err) => {
+            res.status(400).json({ success: false })
+        });
 });
 
 router.post("/delete", (req, res) => {
-    Post.deleteOne({postNum : Number(req.body.postNum)})
-    .exec().then(() => {
-        res.status(200).json({ success: true })
-    }).catch((err) => {
-        res.status(400).json({ success: false })
+    Post.deleteOne({ postNum: Number(req.body.postNum) })
+        .exec().then(() => {
+            res.status(200).json({ success: true })
+        }).catch((err) => {
+            res.status(400).json({ success: false })
+        });
+});
+
+//multer 라이브러리
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, "image/");
+    },
+    filename: function (req, file, cb) {
+        cb(null, `${Date.now()}_${file.originalname}`);
+    },
+});
+
+const upload = multer({ storage: storage }).single("file");
+
+router.post("/image/upload", (req, res) => {
+    upload(req, res, (err) => {
+        if (err) {
+            res.status(400).json({ success: false });
+        } else {
+            res.status(200).json({ success: true, filePath: res.req.file.path });
+        }
     });
 });
+
+
 
 module.exports = router;

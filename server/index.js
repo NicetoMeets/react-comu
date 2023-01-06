@@ -3,8 +3,10 @@ const path = require("path");
 const mongoose = require('mongoose');
 const app = express();
 const port = 5000;
+const config = require("./config/key.js");
 
 app.use(express.static(path.join(__dirname, "../client/build")));
+app.use("/image", express.static("./image"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -12,7 +14,7 @@ app.use("/api/post", require("./Router/post.js"));
 
 app.listen(port, () => {
     mongoose.set("strictQuery", false);
-    mongoose.connect('mongodb+srv://kim:ghfkddl73!@cluster0.g70ao0l.mongodb.net/Community?retryWrites=true&w=majority')
+    mongoose.connect(config.mongoURI)
         .then(() => {
             console.log(`Example app listening at http://localhost:${port}`)
             console.log("Connecting MongoDB..")

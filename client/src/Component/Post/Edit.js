@@ -66,7 +66,7 @@ function Edit() {
                     <input
                         id="title"
                         type="text"
-                        value={Title}
+                        value={Title || ''}
                         onChange={(e) => {
                             setTitle(e.currentTarget.value);
                         }}
@@ -74,7 +74,7 @@ function Edit() {
                     <label htmlFor="content">내용</label>
                     <textarea
                         id="content"
-                        value={Content}
+                        value={Content || ''}
                         onChange={(e) => {
                             setContent(e.currentTarget.value);
                         }}
