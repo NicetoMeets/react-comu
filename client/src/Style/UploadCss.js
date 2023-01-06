@@ -71,8 +71,16 @@ const UploadButtonDiv = styled.div`
         color: black;
         border: 1px solid black;
         }
-        &:nth-last-of-type(1) {
-        margin-left: 10px;
+        &.cancel {
+            margin-right: 10px;
+            background-color: white;
+            color: black;
+            border: 1px solid black;
+            &:hover {
+                background-color: black;
+                color: black;
+                border: 1px solid black;
+                }
         }
     }
 `;

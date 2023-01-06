@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import axios from 'axios';
 import Spinner from 'react-bootstrap/Spinner';
 import { PostDiv, Post, BtnDiv } from '../../Style/PostDetailCSS';
@@ -32,7 +32,9 @@ function Detail() {
             <p>{PostInfo.content}</p>
             </Post>
             <BtnDiv>
+                <Link to={`/edit/${PostInfo.postNum}`}>
                 <button className='edit'>수정</button>
+                </Link>
                 <button className='delete'>삭제</button>
             </BtnDiv>
             </>
