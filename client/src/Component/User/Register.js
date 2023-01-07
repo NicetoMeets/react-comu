@@ -11,6 +11,8 @@ function Register() {
     const [PW, setPW] = useState("");
     const [PWConfirm, setPWConfirm] = useState("");
     const [Flag, setFlag] = useState(false);
+    const [NameCheck, setNameCheck] = useState(false);
+    const [NameInfo, setNameInfo] = useState("");
 
     const navigate = useNavigate();
 
@@ -23,7 +25,10 @@ function Register() {
         if (PW != PWConfirm) {
             return alert("비밀번호와 비밀번호 확인 값은 같아야 합니다.");
         }
-        
+        if (!NameCheck) {
+            return alert("닉네임 중복검사를 진행해 주세요.");
+
+        }
         let createdUser = await firebase
             .auth()
             .createUserWithEmailAndPassword(Email, PW);
@@ -36,7 +41,7 @@ function Register() {
             email: createdUser.user.multiFactor.user.email,
             displayName: createdUser.user.multiFactor.user.displayName,
             uid: createdUser.user.multiFactor.user.uid,
-            
+
         };
         axios.post("/api/user/register", body).then((response) => {
             setFlag(false);
@@ -50,6 +55,28 @@ function Register() {
         });
     };
 
+    const NameCheckFunc = async (e) => {
+        e.preventDefault();
+        if (!Name) {
+            return alert("닉네임을 입력해주세요");
+        }
+
+        let body = {
+            dispalyName: Name,
+        };
+
+        await axios.post("/api/user/namecheck", body).then((response) => {
+            if (response.data.success) {
+                if (response.data.check) {
+                    setNameCheck(true);
+                    setNameInfo("사용가능한 닉네임입니다.");
+                } else {
+                    setNameInfo("사용불가능한 닉네임입니다.");
+                }
+            }
+        });
+    };
+
     return (
         <LoginDiv>
             <form>
@@ -58,10 +85,10 @@ function Register() {
                     type="name"
                     value={Name}
                     onChange={(e) => setName(e.currentTarget.value)}
-
+                    disabled={NameCheck}
                 />
-
-                <button>닉네임 중복검사</button>
+                {NameInfo}
+                <button onClick={(e) => NameCheckFunc(e)}>닉네임 중복검사</button>
                 <label>이메일</label>
                 <input
                     type="email"
@@ -72,14 +99,14 @@ function Register() {
                 <input
                     type="password"
                     value={PW}
-                    minLength={6}
+                    minLength={8}
                     onChange={(e) => setPW(e.currentTarget.value)}
                 />
                 <label>비밀번호확인</label>
                 <input
                     type="password"
                     value={PWConfirm}
-                    minLength={6}
+                    minLength={8}
                     onChange={(e) => setPWConfirm(e.currentTarget.value)}
                 />
                 <button disabled={Flag} onClick={(e) => RefisterFunc(e)}>
@@ -87,7 +114,8 @@ function Register() {
                 </button>
             </form>
         </LoginDiv>
-    )
+    );
 }
+
 
 export default Register

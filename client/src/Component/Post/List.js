@@ -23,6 +23,7 @@ function List() {
                 <ListItem key={i}>
                     <Link to={`/post/${post.postNum}`}>
                     <p className='title'>{post.title}</p>
+                    <p>{post.author.displayName}</p>
                     <p>{post.content}</p>
                     </Link>
                 </ListItem>

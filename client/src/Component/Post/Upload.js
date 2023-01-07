@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { UploadDiv, UploadForm, UploadButtonDiv } from "../../Style/UploadCss"
 import axios from "axios";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import ImageUpload from "./ImageUpload";
 
 function Upload(props) {
@@ -9,6 +10,14 @@ function Upload(props) {
     const [Content, setContent] = useState("");
     const [Image, setImage] = useState("");
     let navigate = useNavigate();
+    const user = useSelector((state) => state.user);
+
+    useEffect(() => {
+        if (user.isLoading && !user.accessToken) {
+            alert("로그인한 회원만 글을 작성할 수 있습니다.");
+            navigate("/login");
+        }
+    }, [user]);
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -19,7 +28,8 @@ function Upload(props) {
         let body = {
             title: Title,
             content: Content,
-            image: Image
+            image: Image,
+            uid: user.uid,
         };
         axios.post("/api/post/submit", body)
             .then((response) => {
@@ -47,7 +57,7 @@ function Upload(props) {
                         setTitle(e.currentTarget.value);
                     }}
                 />
-                <ImageUpload setImage={setImage}/>
+                <ImageUpload setImage={setImage} />
                 <label htmlFor="content">내용</label>
                 <textarea
                     id="content"

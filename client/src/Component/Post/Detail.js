@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useParams, useNavigate } from 'react-router-dom'
+import { useSelector } from "react-redux";
 import axios from 'axios';
 import Spinner from 'react-bootstrap/Spinner';
 import { PostDiv, Post, BtnDiv } from '../../Style/PostDetailCSS';
 
-function Detail() {
-    let navigate = useNavigate();
-    let params = useParams();
+function Detail(props) {
+    
     const [PostInfo, setPostInfo] = useState({});
     const [Flag, setFlag] = useState(false);
+
+    let navigate = useNavigate();
+    let params = useParams();
+    const user = useSelector((state) => state.user);
 
     useEffect(() => {
         let body = {
@@ -49,6 +53,7 @@ function Detail() {
                 <>
                     <Post>
                         <h1>{PostInfo.title}</h1>
+                        <p>{PostInfo.author.displayName}</p>
                         {PostInfo.image? <img src={`http://localhost:5000/${PostInfo.image}`} 
                         alt=''
                         style={{ width: "100%", height: "auto" }} />: null}
