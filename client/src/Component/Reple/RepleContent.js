@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { RepleContentDiv, RepleUploadDiv } from "../../Style/RepleCSS.js";
 import { useSelector } from "react-redux";
-
+import Avatar from "react-avatar";
 import axios from "axios";
 
 function RepleContent(props) {
@@ -58,7 +58,12 @@ function RepleContent(props) {
         <RepleContentDiv>
             <div className="author">
                 <div className="userInfo">
-                    
+                <Avatar
+                    size="30"
+                    round={true}
+                    src={props.reple.author.photoURL}
+                    style={{ border: "1px solid #c6c6c6" }}
+                />
                     <p>{props.reple.author.displayName}</p>
                 </div>
                 {props.reple.author.uid === user.uid && (
@@ -82,7 +87,7 @@ function RepleContent(props) {
                     </div>
                 )}
             </div>
-            
+
             {EdifFlag ? (
                 <RepleUploadDiv>
                     <form>

@@ -1,17 +1,18 @@
-import './App.css';
-import React, { useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import React, { useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser, clearUser } from "./Reducer/useSlice";
 import firebase from "./firebase.js";
 
-import Heading from './Component/Heading';
-import List from './Component/Post/List';
-import Upload from './Component/Post/Upload';
+import Heading from "./Component/Heading";
+import MainPage from "./Component/MainPage";
+
+import Upload from "./Component/Post/Upload";
 import PostArea from "./Component/Post/PostArea";
-import Edit from './Component/Post/Edit';
-import Login from './Component/User/Login';
-import Register from './Component/User/Register';
+import Edit from "./Component/Post/Edit";
+
+import Login from "./Component/User/Login";
+import Register from "./Component/User/Register";
 
 function App() {
   const dispatch = useDispatch();
@@ -24,21 +25,23 @@ function App() {
       } else {
         dispatch(clearUser());
       }
-      //
     });
   }, []);
 
   return (
     <>
     <Heading />
-    <Routes>
-      <Route path='/' element={<List />} />
-      <Route path='/upload' element={<Upload/>} />
-      <Route path='/post/:postNum' element={<PostArea/>} />
-      <Route path='/edit/:postNum' element={<Edit/>} />
-      <Route path='/login' element={<Login/>} />
-      <Route path='/register' element={<Register/>} />
-    </Routes>
+      <Routes>
+        <Route path="/" element={<MainPage />} />
+        {/*Post, Reple*/}
+        <Route path="/upload" element={<Upload />} />
+        <Route path="/post/:postNum" element={<PostArea />} />
+        <Route path="/edit/:postNum" element={<Edit />} />
+
+        {/*User*/}
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+      </Routes>
     </>
   );
 }

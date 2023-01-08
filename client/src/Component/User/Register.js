@@ -35,12 +35,16 @@ function Register() {
 
         await createdUser.user.updateProfile({
             displayName: Name,
+            photoURL:
+        "https://www.gravatar.com/avatar?d=mp&f=y",
         });
 
         let body = {
             email: createdUser.user.multiFactor.user.email,
             displayName: createdUser.user.multiFactor.user.displayName,
             uid: createdUser.user.multiFactor.user.uid,
+            photoURL:
+        "https://www.gravatar.com/avatar?d=mp&f=y",
 
         };
         axios.post("/api/user/register", body).then((response) => {

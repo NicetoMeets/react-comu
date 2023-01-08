@@ -37,11 +37,31 @@ router.post("/submit", (req, res) => {
 });
 
 router.post("/list", (req, res) => {
-    Post.find().populate("author").exec().then((doc) => {
-        res.status(200).json({ success: true, postList: doc })
-    }).catch((err) => {
-        res.status(400).json({ success: false })
-    });
+    let sort = {};
+
+    if (req.body.sort === "최신순") {
+        sort.createdAt = -1;
+    } else {
+        //인기순
+        sort.repleNum = -1;
+    }
+    Post.find({
+        $or: [
+            { title: { $regex: req.body.searchTerm } },
+            { content: { $regex: req.body.searchTerm } },   //둘중 하나 포함
+        ],
+    })
+        .populate("author")
+        .sort(sort)
+        .skip(req.body.skip) // 0, 5
+        .limit(5) //한번에 찾을 doc 숫자
+        .exec()
+        .then((doc) => {
+            res.status(200).json({ success: true, postList: doc });
+        })
+        .catch((err) => {
+            res.status(400).json({ success: false });
+        });
 });
 
 router.post("/detail", (req, res) => {

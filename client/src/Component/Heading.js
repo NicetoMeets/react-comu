@@ -23,9 +23,9 @@ function Heading() {
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">
-                            <Link to='/' style={{ color: 'white', textDecoration: 'none', marginRight: '10px' }}>Home</Link>
-                            <Link to='/upload' style={{ color: 'white', textDecoration: 'none', marginRight: '10px' }}>Upload</Link>
-
+                            <Link to='/' style={{ color: 'white', textDecoration: 'none', marginRight: '25px', marginLeft: '20px' }}>Home</Link>
+                            <Link to='/upload' style={{ color: 'white', textDecoration: 'none', marginRight: '25px' }}>Upload</Link>
+                            <Link to='/' style={{ color: 'white', textDecoration: 'none', marginRight: '25px' }}>Board</Link>
                         </Nav>
                     </Navbar.Collapse>
                     <Navbar.Collapse className="justify-content-end">

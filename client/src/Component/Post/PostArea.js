@@ -8,7 +8,7 @@ import RepleArea from "../Reple/RepleArea";
 import { Spinner } from "react-bootstrap";
 import { SpinnerDiv } from "../../Style/PostDetailCSS.js";
 
-function PostArea() {
+function PostArea(props) {
     const [PostInfo, setPostInfo] = useState({});
     const [Flag, setFlag] = useState(false);
 

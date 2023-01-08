@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import Avatar from "react-avatar";
 
 import { PostDiv, Post, BtnDiv } from "../../Style/PostDetailCSS.js";
 
@@ -39,24 +40,22 @@ function Detail(props) {
                 </div>
                 {props.PostInfo.image ? (
                     <img
-                        src={props.PostInfo.image}
+                        src={`http://localhost:5000/${props.PostInfo.image}`}
                         alt=""
                         style={{ width: "100%", height: "auto" }}
                     />
                 ) : null}
                 <p>{props.PostInfo.content}</p>
             </Post>
-            {user.uid === props.PostInfo.author.uid && (
-                <BtnDiv>
-                    <Link to={`/edit/${props.PostInfo.postNum}`}>
-                        <button className="edit">수정</button>
-                    </Link>
+            <BtnDiv>
+                <Link to={`/edit/${props.PostInfo.postNum}`}>
+                    <button className="edit">수정</button>
+                </Link>
 
-                    <button className="delete" onClick={() => DeleteHandler()}>
-                        삭제
-                    </button>
-                </BtnDiv>
-            )}
+                <button className="delete" onClick={() => DeleteHandler()}>
+                    삭제
+                </button>
+            </BtnDiv>
         </PostDiv>
     );
 }

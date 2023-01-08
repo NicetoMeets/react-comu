@@ -7,9 +7,9 @@ const RepleAreaDiv = styled.div`
     @media (max-width: 756px) {
         width: 90%;
     }
-`;
+    `;
 
-const RepleUploadDiv = styled.div`
+    const RepleUploadDiv = styled.div`
     width: 100%;
 
     form {
@@ -61,9 +61,9 @@ const RepleUploadDiv = styled.div`
 
 const RepleListDiv = styled.div`
     margin-top: 1rem;
-`;
+    `;
 
-const RepleContentDiv = styled.div`
+    const RepleContentDiv = styled.div`
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.03), 0px 7.5px 6px rgba(0, 0, 0, 0.1);
     padding: 20px 10px;
     margin-bottom: 10px;
