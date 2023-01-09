@@ -32,7 +32,7 @@ https://user-images.githubusercontent.com/108124042/211211849-400f6e65-3ac9-4b79
 - React 리액트 Hook
 - Redux-toolkit 로그인, 로그아웃시 회원정보 변동 저장
 - react-router-dom 페이지 경로설정
-- Express
+- Express 
 - MongoDB nosql
 - mongoose 스키마 모델 몽고디비 연결
 - path
@@ -41,7 +41,7 @@ https://user-images.githubusercontent.com/108124042/211211849-400f6e65-3ac9-4b79
 - Body-parser 클라이언트에서 보내는 바디를 파싱하기 위함
 - react-bootstrap
 - emotion sass 기반
-- Multer
+- Multer 파일업로드
 - react-avatar
 - Moment
 
