@@ -57,6 +57,6 @@ server에 이미지폴더 경로를 static으로 알려주어 해결
 
 - 글 수정시 
 component is changing an uncontrolled input to be controlled 에러가 나타났다
-input의 value에 undefined가 들어 갈수도 있다는 에러였다
+input의 value에 undefined가 들어갈수도 있다는 에러였다
 value={Title || ''} 으로 수정하여 해결
 
