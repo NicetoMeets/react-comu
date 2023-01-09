@@ -12,3 +12,19 @@ PortFolio 프로젝트 소개
 
 https://user-images.githubusercontent.com/108124042/211211849-400f6e65-3ac9-4b79-801d-72c54068a255.mp4
 
+
+- 
+
+# 적용 기술
+
+
+
+## 외부
+
+- 
+
+
+# 에러 사항
+
+
+- 
